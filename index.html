@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inkwell Books</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="header">
+            <!--Bildet funker som en link til hovedsiden-->
+            <a href="index.html">
+                <img src="Bilder/logo.png">
+            </a>
+            <div id="search_box">
+                <input type="search" id="search" placeholder="Søk..." data-search autocomplete="off">
+                <button id="search-button"></button>
+            </div>
+            <ul>
+                <li id="loggInn_knapp"><a href="logg_inn.html">Logg inn</a></li>
+                <li><a href="handlekurv.html">Handlekurv</a></li>
+            </ul>
+    </div>
+    <!--Bedre kodelesbarhet ved å bruke "nav"-->
+    <nav class="navigation_bar"> 
+        <ul>
+            <li><a href="index.html">Bøker</a></li>
+            <li><a href="om_oss.html">Om oss</a></li>
+        </ul>
+    </nav>
+    <!--Bedre kodelesbarhet ved å bruke "main"-->
+    <main>
+
+    </main>
+
+    <script>
+        // Vi først lager en array som skal inneholde alle produktene våre
+        let produkter = [
+            {
+                imgSrc:"Bilder/spilleren.jpg",
+                tittel: "Spilleren",
+                pris: "449,-"
+            },
+            {
+                imgSrc: "Bilder/en_dag.jpg",
+                tittel: "En dag",
+                pris: "149,-"
+            },
+            {
+                imgSrc: "Bilder/elskede_barn.jpg",
+                tittel: "Elskede barn",
+                pris: "249,-"
+            },
+            {
+                imgSrc:"Bilder/ravnejenta.jpg",
+                tittel: "Ravnejenta",
+                pris: "79,-"
+            },
+            {
+                imgSrc: "Bilder/bestselger.jpg",
+                tittel: "Bestselger",
+                pris: "299,-"
+            },
+            {
+                imgSrc: "Bilder/illlandet.jpg",
+                tittel: "Ildlandet",
+                pris: "199,-"
+            },
+            {
+                imgSrc: "Bilder/kokain.jpg",
+                tittel: "Kokain",
+                pris: "201,-"
+            },
+            {
+                imgSrc: "Bilder/skygger.jpg",
+                tittel: "Skygger",
+                pris: "299,-"
+            },
+            {
+                imgSrc:"Bilder/jeg_skal.jpg",
+                tittel: "Jeg skal hente deg",
+                pris: "450,-"
+            },
+            {
+                imgSrc:"Bilder/mordene.jpg",
+                tittel:"Mordene på Fleat House",
+                pris: "250,-"
+            },
+            {
+                imgSrc: "Bilder/hafni.jpg",
+                tittel: "Hafni forteller",
+                pris: "350,-"
+            },
+            {
+                imgSrc: "Bilder/forsoneren.jpg",
+                tittel: "Forsoneren",
+                pris: "299,-"
+            }
+        ]
+
+        // henter main-elementet og diven som skal inneholde alle produktene
+        /* jeg valgte å ha en sånn struktur, med en main og en annen div-element inni,
+        for å gjøre det lettere når jeg skal gi stiler til dem */
+        let mainEl = document.querySelector("main");
+        let productResultsEl = document.createElement("div");
+        productResultsEl.setAttribute("id","product_results");
+
+        // her lager jeg en funskjon som skal bygge hvert div-element med hvert produkt
+        // funksjonen kjører hver gang sida lastes
+        function lagElement() {
+            for(let i = 0; i < produkter.length; i++) {
+                let bookItemEl = document.createElement("div");
+                let imgEl = document.createElement("img");
+                let tittelEl = document.createElement("h1");
+                let prisEl = document.createElement("p")
+                let knappEl = document.createElement("button");
+
+                // hver knapp for en lytter som skal kjøre en funskjon leggKurv
+                knappEl.addEventListener("click", leggKurv);
+
+                // jeg gir forskjellige klasser til hver element for å kunne gi stiler individuelt
+                bookItemEl.setAttribute("class", "book_item");
+                imgEl.setAttribute("src", produkter[i].imgSrc);
+                bookItemEl.setAttribute("data-index", i); // hver index for en data-index, slik at vi kan referere til dem etterpå
+                tittelEl.classList.add("product_titel");
+                imgEl.classList.add("product_cover");
+                prisEl.classList.add("product_price");
+                knappEl.classList.add("product_button");
+
+                tittelEl.innerText = produkter[i].tittel;
+                prisEl.innerText = produkter[i].pris;
+                knappEl.innerText = "Legg i kurven!"
+                knappEl.dataset.index = i;
+
+
+                bookItemEl.appendChild(imgEl);
+                bookItemEl.appendChild(tittelEl);
+                bookItemEl.appendChild(prisEl);
+                bookItemEl.appendChild(knappEl);
+
+                productResultsEl.appendChild(bookItemEl);
+                mainEl.appendChild(productResultsEl);
+            
+        }
+        }
+
+        lagElement();
+
+
+        function leggKurv() {
+            // først henter vi indeksen til produkten som inneholder knappen som blir klikka
+            let produktIndeks = event.target.dataset.index;
+            // nå henter vi produktet fra arrayen
+            let valgtProdukt = produkter[produktIndeks];
+
+            // henter handlekurven fra localStorage hvis den finnes, hvis ikke vi lagen en ny
+            let kurvProdukter = JSON.parse(localStorage.getItem("kurvProdukter")) || [];
+
+            // sjekker hvis produktet allerede finnes
+            let eksisterendeProdukt = kurvProdukter.find(item => item.tittel === valgtProdukt.tittel);
+
+            if (eksisterendeProdukt) {
+                // Hvis produktet allerede er i handlekurven, øk antallet
+                eksisterendeProdukt.antall++;
+              } else {
+                 // Hvis ikke, legg til produktet i handlekurven med antall 1
+                 valgtProdukt.antall = 1;
+                 kurvProdukter.push(valgtProdukt);
+            }
+
+            localStorage.setItem("kurvProdukter", JSON.stringify(kurvProdukter));
+
+            window.location.href = "handlekurv.html";
+        }
+
+        let searchInput = document.querySelector("[data-search]");
+
+        searchInput.addEventListener("input", e => {
+        let value = e.target.value.toLowerCase();
+        produkter.forEach(produkt => {
+            let bookItemEl = document.querySelector('.book_item[data-index="' + produkter.indexOf(produkt) + '"]'); // Finn riktig bok-element ved hjelp av indeksen
+            let isVisible = produkt.tittel.toLowerCase().includes(value);
+            if (bookItemEl) {
+                bookItemEl.classList.toggle("hide", !isVisible);
+            }
+            });
+        });
+        
+        // Jeg henter listepunktet som inneholder teksten "logg inn", får å bytte det ut med navn etter innlogging
+        let loggInnEl = document.querySelector("#loggInn_knapp")
+        
+        if(sessionStorage.getItem("navn") !== null) {
+            loggInnEl.innerHTML = "<a href='logg_inn.html'>Hi " + sessionStorage.getItem("navn") + "!</a>";
+        }
+    </script>
+
+
+</body>
+</html>
