@@ -1,59 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Handlekurv</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="header">
-            <!--Bildet funker som en link til hovedsiden-->
-            <a href="index.html">
-                <img src="Bilder/logo.png">
-            </a>
-            <div id="search_box">
-                <input type="text" id="search-input" placeholder="Søk...">
-                <button id="search-button"></button>
-            </div>
-            <ul>
-                <li id="loggInn_knapp"><a href="logg_inn.html">Logg inn</a></li>
-                <li><a href="handlekurv.html">Handlekurv</a></li>
-            </ul>
+        <a href="index.html">
+            <img src="Bilder/logo.png">
+        </a>
+        <div id="search_box">
+            <input type="text" id="search-input" placeholder="Søk...">
+            <button id="search-button"></button>
+        </div>
+        <ul>
+            <li id="loggInn_knapp"><a href="logg_inn.html">Logg inn</a></li>
+            <li><a href="handlekurv.html">Handlekurv</a></li>
+        </ul>
     </div>
-    <!--Bedre kodelesbarhet ved å bruke "nav"-->
-    <nav class="navigation_bar"> 
+
+    <nav class="navigation_bar">
         <ul>
             <li><a href="index.html">Bøker</a></li>
             <li><a href="om_oss.html">Om oss</a></li>
         </ul>
     </nav>
-    <!--Bedre kodelesbarhet ved å bruke "main"-->
+
     <main>
         <div id="handlekurv_produkter"></div>
     </main>
 
     <script>
-        // henter produktene fra local storage
         let kurvProdukter = JSON.parse(localStorage.getItem("kurvProdukter"));
 
         let kurvContainer = document.querySelector("#handlekurv_produkter");
 
         let totalSum = 0;
 
-        // for hver produkt lages det en en ny div
         kurvProdukter.forEach(element => {
             let pris = parseFloat(element.pris.replace(',', '').replace('-', ''));
             let totalPris = pris * element.antall;
             totalSum += totalPris
             let produktDiv = document.createElement("div");
             produktDiv.setAttribute("class", "kurv_element");
-            produktDiv.innerHTML = 
+            produktDiv.innerHTML =
                 `<img src="${element.imgSrc}" alt="${element.tittel}">
                 <h2>${element.tittel}</h2>
                 <p>Antall: ${element.antall}</p>
                 <p>${totalPris} kr</p>`;
-            
+
             kurvContainer.appendChild(produktDiv);
         });
 
@@ -71,19 +70,18 @@
 
         handlekurv_produkterEl.appendChild(slettEl);
 
-        // Jeg lager en p-element som skal inneholde totalprisen til alle produketene
         let totalSumEl = document.createElement("p");
         totalSumEl.innerHTML = "<h1>Totalpris = " + totalSum + " kr</h1>";
         kurvContainer.appendChild(totalSumEl);
 
-        // Jeg henter listepunktet som inneholder teksten "logg inn", får å bytte det ut med navn etter innlogging
         let loggInnEl = document.querySelector("#loggInn_knapp")
 
-        if(sessionStorage.getItem("navn") !== null) {
+        if (sessionStorage.getItem("navn") !== null) {
             loggInnEl.innerHTML = "<a href='logg_inn.html'>Hi " + sessionStorage.getItem("navn") + "!</a>";
         }
     </script>
 
 
 </body>
+
 </html>

@@ -1,34 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Logg inn</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="header">
-            <!--Bildet funker som en link til hovedsiden-->
-            <a href="index.html">
-                <img src="Bilder/logo.png">
-            </a>
-            <div id="search_box">
-                <input type="search" id="search" placeholder="Søk..." data-search>
-                <button id="search-button"></button>
-            </div>
-            <ul>
-                <li id="loggInn_knapp"><a href="logg_inn.html">Logg inn</a></li>
-                <li><a href="handlekurv.html">Handlekurv</a></li>
-            </ul>
+        <a href="index.html">
+            <img src="Bilder/logo.png">
+        </a>
+        <div id="search_box">
+            <input type="search" id="search" placeholder="Søk..." data-search>
+            <button id="search-button"></button>
+        </div>
+        <ul>
+            <li id="loggInn_knapp"><a href="logg_inn.html">Logg inn</a></li>
+            <li><a href="handlekurv.html">Handlekurv</a></li>
+        </ul>
     </div>
-    <!--Bedre kodelesbarhet ved å bruke "nav"-->
-    <nav class="navigation_bar"> 
+
+    <nav class="navigation_bar">
         <ul>
             <li><a href="index.html">Bøker</a></li>
             <li><a href="om_oss.html">Om oss</a></li>
         </ul>
     </nav>
-    <!--Bedre kodelesbarhet ved å bruke "main"-->
+
     <main>
         <div id="credentials">
             <label for="brukernavn">Brukernavn:</label>
@@ -41,52 +42,48 @@
     </main>
 
     <script>
-        // objekt som inneholder alle brukernavnene, og navn som er knyttet til hver brukernavn
         let brukere = [
             {
-                brukernavn:"AdrianMU",
-                navn:"Adrian"
+                brukernavn: "AdrianMU",
+                navn: "Adrian"
             },
             {
                 brukernavn: "Marit123",
                 navn: "Marit"
             }
         ]
-        
+
         let brukernavnEl = document.querySelector("#brukernavn");
         let knappEl = document.querySelector("#logg_inn");
-        // Jeg henter listepunktet som inneholder teksten "logg inn", får å bytte det ut med navn etter innlogging
         let loggInnEl = document.querySelector("#loggInn_knapp")
-
 
         knappEl.addEventListener("click", visNavn);
 
-        // funksjonen skal sammenligne hvis den oppgitte brukernavnet er lik en av de fra objektet i linje 45
-        // hvis den er lik, da sendes navnet ut til sessionStorage, og videre skal det printes ut til nettsida
         let brukernavnFunnet = false;
 
         function visNavn() {
-            for(let i = 0; i < brukere.length; i++) {
-                if(brukernavnEl.value == brukere[i].brukernavn) {
+            for (let i = 0; i < brukere.length; i++) {
+                if (brukernavnEl.value == brukere[i].brukernavn) {
                     brukernavnFunnet = true;
                     sessionStorage.setItem("navn", brukere[i].navn);
                     location.reload();
                     break;
                 }
-            
+
             }
-            if(!brukernavnFunnet) {
-            alert("Feil brukernavn eller passord!")
+            if (!brukernavnFunnet) {
+                alert("Feil brukernavn eller passord!")
             }
         }
 
-        
 
-        if(sessionStorage.getItem("navn") !== null) {
+
+        if (sessionStorage.getItem("navn") !== null) {
             loggInnEl.innerHTML = "<a href='logg_inn.html'>Hi " + sessionStorage.getItem("navn") + "!</a>";
         }
 
 
     </script>
 </body>
+
 </html>

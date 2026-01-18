@@ -1,27 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Om oss</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="header">
-            <a href="index.html">
-                <img src="Bilder/logo.png">
-            </a>
-            <div id="search_box">
-                <input type="text" id="search-input" placeholder="Søk...">
-                <button id="search-button"></button>
-            </div>
-            <ul>
-                <li id="loggInn_knapp"><a href="logg_inn.html">Logg inn</a></li>
-                <li><a href="handlekurv.html">Handlekurv</a></li>
-            </ul>
+        <a href="index.html">
+            <img src="Bilder/logo.png">
+        </a>
+        <div id="search_box">
+            <input type="text" id="search-input" placeholder="Søk...">
+            <button id="search-button"></button>
+        </div>
+        <ul>
+            <li id="loggInn_knapp"><a href="logg_inn.html">Logg inn</a></li>
+            <li><a href="handlekurv.html">Handlekurv</a></li>
+        </ul>
     </div>
 
-    <nav class="navigation_bar"> 
+    <nav class="navigation_bar">
         <ul>
             <li><a href="index.html">Bøker</a></li>
             <li><a href="om_oss.html">Om oss</a></li>
@@ -31,28 +33,37 @@
     <main>
         <div id="wrapper">
             <h1>Om Inkweel Books</h1>
-            <p>Vi er stolte av å tilby et bredt utvalg av bøker og e-bøker fra alle sjangre og for alle aldre. Enten du er en lidenskapelig leser, en student på jakt etter pensum, eller bare søker etter den perfekte gaven, har vi noe for enhver smak og interesse.</p>
-            <p>Vår nettbutikk er dedikert til å gi deg en sømløs og tilfredsstillende handleopplevelse. Her er noen av funksjonene som gjør oss til det foretrukne valget for bokelskere overalt:</p>
+            <p>Vi er stolte av å tilby et bredt utvalg av bøker og e-bøker fra alle sjangre og for alle aldre. Enten du
+                er en lidenskapelig leser, en student på jakt etter pensum, eller bare søker etter den perfekte gaven,
+                har vi noe for enhver smak og interesse.</p>
+            <p>Vår nettbutikk er dedikert til å gi deg en sømløs og tilfredsstillende handleopplevelse. Her er noen av
+                funksjonene som gjør oss til det foretrukne valget for bokelskere overalt:</p>
             <br>
-            <p><b>Mangfoldig Utvalg:</b> Utforsk vår omfattende samling av bøker og e-bøker innen skjønnlitteratur, faglitteratur, selvutvikling, barnelitteratur og mye mer. Vi kuraterer nøye hvert produkt for å sikre kvalitet og variert innhold.</p>
+            <p><b>Mangfoldig Utvalg:</b> Utforsk vår omfattende samling av bøker og e-bøker innen skjønnlitteratur,
+                faglitteratur, selvutvikling, barnelitteratur og mye mer. Vi kuraterer nøye hvert produkt for å sikre
+                kvalitet og variert innhold.</p>
             <br>
-            <p><b>Enkel Navigasjon:</b> Vår brukervennlige nettside gjør det enkelt å finne akkurat det du leter etter. Bruk vårt søkeverktøy for å søke etter bestemte titler, forfattere eller emner, eller bla gjennom våre kategorier for å oppdage nye favoritter.</p>
+            <p><b>Enkel Navigasjon:</b> Vår brukervennlige nettside gjør det enkelt å finne akkurat det du leter etter.
+                Bruk vårt søkeverktøy for å søke etter bestemte titler, forfattere eller emner, eller bla gjennom våre
+                kategorier for å oppdage nye favoritter.</p>
             <br>
-            <p><b>Fysiske og Digitale Alternativer:</b> Enten du foretrekker den tradisjonelle følelsen av å bla gjennom sider eller den praktiske tilgjengeligheten til e-bøker, har vi deg dekket. Velg mellom fysiske bøker som du kan holde i hendene, eller last ned e-bøker direkte til din enhet for umiddelbar lesing.</p>
+            <p><b>Fysiske og Digitale Alternativer:</b> Enten du foretrekker den tradisjonelle følelsen av å bla gjennom
+                sider eller den praktiske tilgjengeligheten til e-bøker, har vi deg dekket. Velg mellom fysiske bøker
+                som du kan holde i hendene, eller last ned e-bøker direkte til din enhet for umiddelbar lesing.</p>
 
         </div>
-        
+
     </main>
 
     <script>
-        // Jeg henter listepunktet som inneholder teksten "logg inn", får å bytte det ut med navn etter innlogging
         let loggInnEl = document.querySelector("#loggInn_knapp")
-        
-        if(sessionStorage.getItem("navn") !== null) {
+
+        if (sessionStorage.getItem("navn") !== null) {
             loggInnEl.innerHTML = "<a href='logg_inn.html'>Hi " + sessionStorage.getItem("navn") + "!</a>";
         }
     </script>
 
 
 </body>
+
 </html>
